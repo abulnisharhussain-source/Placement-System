@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlaceMe — Student Placement Management System</title>
+    <meta name="description"
+        content="PlaceMe — A modern student placement management system connecting students, recruiters and placement officers." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/bold/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/fill/style.css" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <!-- ========== AUTH SCREEN ========== -->
+    <div id="auth-screen" class="auth-screen">
+        <!-- Animated background shapes -->
+        <div class="auth-bg">
+            <div class="auth-shape auth-shape-1"></div>
+            <div class="auth-shape auth-shape-2"></div>
+            <div class="auth-shape auth-shape-3"></div>
+        </div>
+
+        <!-- Left Branding Panel -->
+        <div class="auth-left">
+            <div class="auth-brand">
+                <div class="auth-brand-icon">
+                    <i class="ph-fill ph-graduation-cap"></i>
+                </div>
+                <h1 class="auth-brand-name">Place<span class="accent">Me</span></h1>
+                <p class="auth-brand-tagline">Student Placement Management System</p>
+            </div>
+
+            <div class="auth-features">
+                <div class="auth-feature">
+                    <div class="auth-feature-icon student-color">
+                        <i class="ph ph-student"></i>
+                    </div>
+                    <div class="auth-feature-text">
+                        <div class="auth-feature-title">For Students</div>
+                        <div class="auth-feature-desc">Register, build profile, apply to jobs and track your placement
+                            journey in
+                            real-time</div>
+                    </div>
+                </div>
+                <div class="auth-feature">
+                    <div class="auth-feature-icon recruiter-color">
+                        <i class="ph ph-buildings"></i>
+                    </div>
+                    <div class="auth-feature-text">
+                        <div class="auth-feature-title">For Recruiters</div>
+                        <div class="auth-feature-desc">Post job openings, filter candidates by skills & CGPA, manage
+                            hiring
+                            pipeline</div>
+                    </div>
+                </div>
+                <div class="auth-feature">
+                    <div class="auth-feature-icon admin-color">
+                        <i class="ph ph-shield-check"></i>
+                    </div>
+                    <div class="auth-feature-text">
+                        <div class="auth-feature-title">For Placement Officers</div>
+                        <div class="auth-feature-desc">Full control — analytics dashboard, approvals, reports and smart
+                            matching
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-stats">
+                <div class="auth-stat">
+                    <div class="auth-stat-value">500+</div>
+                    <div class="auth-stat-label">Students</div>
+                </div>
+                <div class="auth-stat">
+                    <div class="auth-stat-value">120+</div>
+                    <div class="auth-stat-label">Companies</div>
+                </div>
+                <div class="auth-stat">
+                    <div class="auth-stat-value">85%</div>
+                    <div class="auth-stat-label">Placement Rate</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Auth Form Panel -->
+        <div class="auth-right">
+            <div class="auth-card glass-card">
+
+                <!-- Role Selector -->
+                <div class="role-selector">
+                    <button class="role-btn active" id="role-student" onclick="selectRole('student')">
+                        <i class="ph ph-student"></i>
+                        <span>Student</span>
+                    </button>
+                    <button class="role-btn" id="role-recruiter" onclick="selectRole('recruiter')">
+                        <i class="ph ph-buildings"></i>
+                        <span>Recruiter</span>
+                    </button>
+                    <button class="role-btn" id="role-admin" onclick="selectRole('admin')">
+                        <i class="ph ph-shield-check"></i>
+                        <span>Admin</span>
+                    </button>
+                </div>
+
+                <!-- Tab Switcher (hidden for admin) -->
+                <div class="auth-tabs" id="auth-tabs">
+                    <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+                    <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Register</button>
+                </div>
+
+                <!-- ====== LOGIN FORM ====== -->
+                <form id="login-form" class="auth-form" autocomplete="on" onsubmit="handleLogin(event); return false;">
+                    <div class="auth-form-header">
+                        <div class="auth-form-title" id="login-title">Welcome Back 👋</div>
+                        <div class="auth-form-subtitle" id="login-subtitle">Sign in to your student account</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="ph ph-envelope"></i>
+                            <input type="email" id="login-email" placeholder="your@email.com" required
+                                autocomplete="username" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px">
+                            <label for="login-password" style="margin-bottom:0">Password</label>
+                            <a href="#" onclick="showForgotPasswordModal(); return false;" style="font-size:0.78rem; color:var(--accent-cyan); text-decoration:none; font-weight:500">Forgot password?</a>
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="ph ph-lock"></i>
+                            <input type="password" id="login-password" placeholder="••••••••" required
+                                autocomplete="current-password" />
+                            <button type="button" class="pw-toggle" onclick="togglePw('login-password', this)"
+                                tabindex="-1">
+                                <i class="ph ph-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="auth-hint" id="login-hint">
+                        <i class="ph ph-info"></i>
+                        <span id="login-hint-text">Demo: aarav@college.edu / student123</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full" id="login-btn">
+                        <span>Sign In</span>
+                        <i class="ph ph-sign-in"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-secondary btn-full quick-fill-btn" style="margin-top: 10px; font-size: 0.8rem;" onclick="fillDemoCredentials()">
+                        <i class="ph ph-lightning"></i>
+                        <span>Quick Fill Demo Credentials</span>
+                    </button>
+                </form>
+
+                <!-- ====== REGISTER FORM ====== -->
+                <form id="register-form" class="auth-form hidden" autocomplete="off" onsubmit="handleRegister(event); return false;">
+                    <div class="auth-form-header">
+                        <div class="auth-form-title">Create Account ✨</div>
+                        <div class="auth-form-subtitle" id="register-subtitle">Register as a student</div>
+                    </div>
+
+                    <!-- Student-specific fields -->
+                    <div id="student-reg-fields">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name *</label>
+                                <div class="input-wrapper">
+                                    <i class="ph ph-user"></i>
+                                    <input type="text" id="reg-name" placeholder="Your Full Name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Roll Number</label>
+                                <div class="input-wrapper">
+                                    <i class="ph ph-identification-card"></i>
+                                    <input type="text" id="reg-roll" placeholder="e.g. CS22001" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Department</label>
+                                <div class="input-wrapper">
+                                    <i class="ph ph-books"></i>
+                                    <select id="reg-dept">
+                                        <option value="CSE">CSE</option>
+                                        <option value="IT">IT</option>
+                                        <option value="ECE">ECE</option>
+                                        <option value="EEE">EEE</option>
+                                        <option value="ME">Mechanical</option>
+                                        <option value="CIVIL">Civil</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>CGPA</label>
+                                <div class="input-wrapper">
+                                    <i class="ph ph-exam"></i>
+                                    <input type="number" id="reg-cgpa" placeholder="e.g. 8.5" min="0" max="10"
+                                        step="0.01" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Batch</label>
+                                <div class="input-wrapper">
+                                    <i class="ph ph-calendar"></i>
+                                    <input type="text" id="reg-batch" placeholder="e.g. 2022-2026" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <div class="input-wrapper">
+                                    <i class="ph ph-phone"></i>
+                                    <input type="tel" id="reg-phone" placeholder="10-digit number" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recruiter-specific fields -->
+                    <div id="recruiter-reg-fields" class="hidden">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Company Name *</label>
+                                <div class="input-wrapper">
+                                    <i class="ph ph-buildings"></i>
+                                    <input type="text" id="reg-company" placeholder="Company Name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Industry *</label>
+                                <div class="input-wrapper">
+                                    <i class="ph ph-factory"></i>
+                                    <input type="text" id="reg-industry" placeholder="e.g. Technology" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Contact Person</label>
+                                <div class="input-wrapper">
+                                    <i class="ph ph-user-tie"></i>
+                                    <input type="text" id="reg-contact-name" placeholder="HR Manager Name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Package Offered</label>
+                                <div class="input-wrapper">
+                                    <i class="ph ph-currency-inr"></i>
+                                    <input type="text" id="reg-pkg" placeholder="e.g. 12 LPA" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Website</label>
+                            <div class="input-wrapper">
+                                <i class="ph ph-globe"></i>
+                                <input type="text" id="reg-website" placeholder="company.com" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Common fields -->
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <div class="input-wrapper">
+                            <i class="ph ph-envelope"></i>
+                            <input type="email" id="reg-email" placeholder="your@email.com" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Password *</label>
+                            <div class="input-wrapper">
+                                <i class="ph ph-lock"></i>
+                                <input type="password" id="reg-password" placeholder="Min 6 chars" />
+                                <button type="button" class="pw-toggle" onclick="togglePw('reg-password', this)"
+                                    tabindex="-1">
+                                    <i class="ph ph-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password *</label>
+                            <div class="input-wrapper">
+                                <i class="ph ph-lock-key"></i>
+                                <input type="password" id="reg-confirm" placeholder="Repeat password" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full" id="register-btn">
+                        <span>Create Account</span>
+                        <i class="ph ph-user-plus"></i>
+                    </button>
+                </form>
+
+                <p class="auth-switch" id="auth-switch-text">
+                    Don't have an account?
+                    <a href="#" id="auth-switch-link" onclick="switchTab('register'); return false;">Register here</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN APP ========== -->
+    <div id="app" class="app hidden">
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="ph-fill ph-graduation-cap"></i>
+                    <span>Place<span class="accent">Me</span></span>
+                </div>
+                <button id="sidebar-close" class="sidebar-close" aria-label="Close sidebar">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Dynamic nav links generated by JS based on role -->
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="user-avatar">A</div>
+                    <div class="user-details">
+                        <span class="user-name" id="user-name">Admin</span>
+                        <span class="user-role" id="user-email">Placement Officer</span>
+                    </div>
+                </div>
+                <button id="logout-btn" class="btn-icon" title="Logout">
+                    <i class="ph ph-sign-out"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <button id="sidebar-toggle" class="btn-icon sidebar-toggle" aria-label="Toggle sidebar">
+                    <i class="ph ph-list"></i>
+                </button>
+                <div class="topbar-title">
+                    <h2 id="page-title">Dashboard</h2>
+                </div>
+                <div class="topbar-actions">
+                    <div class="search-box">
+                        <i class="ph ph-magnifying-glass"></i>
+                        <input type="text" id="global-search" placeholder="Search..." />
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn-icon" id="predictor-btn" title="Placement Predictor"
+                            onclick="openPredictor()">
+                            <i class="ph ph-magic-wand"></i>
+                        </button>
+                        <button class="btn-icon" id="theme-toggle-btn" title="Toggle Theme" onclick="toggleTheme()">
+                            <i class="ph ph-sun"></i>
+                        </button>
+                        <button class="btn-icon notif-btn" id="notif-btn" title="Notifications"
+                            onclick="openNotifications()">
+                            <i class="ph ph-bell"></i>
+                            <span class="notif-badge" id="notif-badge">0</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            <div id="page-container" class="page-container"></div>
+        </main>
+    </div>
+
+    <!-- ========== MODAL ========== -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal glass-card" id="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Modal Title</h3>
+                <button id="modal-close" class="btn-icon"><i class="ph ph-x"></i></button>
+            </div>
+            <div id="modal-body" class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- ========== TOAST ========== -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
